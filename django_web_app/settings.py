@@ -50,6 +50,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://164.90.237.172:3000"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -77,9 +78,12 @@ WSGI_APPLICATION = 'django_web_app.wsgi.application'
 ASGI_APPLICATION = 'django_web_app.asgi.application'
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [("redis://default:TVJNcI2q5bnHc6VV1JVUWwvK9Mj6aYS2@redis-13587.c10.us-east-1-2.ec2.cloud.redislabs.com:13587")],
+        },
+    },
 }
 
 
