@@ -48,7 +48,7 @@ def login(request):
         return response
     
 # Get user's details from cookie
-@api_view()
+@api_view(['POST'])
 def user_details(request):
     if request.method == 'POST':
         token = request.data['token']
