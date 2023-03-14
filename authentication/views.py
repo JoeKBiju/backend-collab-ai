@@ -50,7 +50,7 @@ def login(request):
 # Get user's details from cookie
 @api_view()
 def user_details(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         token = request.data['token']
 
         if token is None:
