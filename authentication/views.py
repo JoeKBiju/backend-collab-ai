@@ -51,7 +51,7 @@ def login(request):
 @api_view()
 def user_details(request):
     if request.method == 'GET':
-        token = request.COOKIES.get('token')
+        token = request.data['token']
 
         if token is None:
             raise AuthenticationFailed('User not logged in')
