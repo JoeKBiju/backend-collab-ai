@@ -9,6 +9,7 @@ import numpy as np
 from transformers import DistilBertTokenizer, TFDistilBertModel
 import string
 import os
+import subprocess
 from django.conf import settings
 
 @api_view(['PUT'])
@@ -68,8 +69,13 @@ def get_sentiment(request):
         
         sentiment_model.compile(optimizer=optim, loss=loss_func, metrics=[acc])
 
-        file_model = os.path.join(settings.BASE_DIR, 'sentiment/models/my_model_weights.h5')
-        sentiment_model.load_weights(file_model)
+        #file_model = os.path.join(settings.BASE_DIR, 'sentiment/models/my_model_weights.h5')
+        #sentiment_model.load_weights(file_model)
+
+        if not os.path.isfile('model.h5'):
+            subprocess.run(['curl --output model.h5 "https://github.com/JoeKBiju/backend-collab-ai/blob/master/sentiment/models/my_model_weights.h5"'], shell=True)
+
+        sentiment_model.load_weights('model.h5')
 
         tokenized_predict = tokenizer(
             text = text,
